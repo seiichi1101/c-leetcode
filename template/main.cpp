@@ -1,24 +1,23 @@
-#include <bits/stdc++.h>
+#include <unordered_map>
+#include <string>
+#include <vector>
+#include <cassert>
 using namespace std;
 
-#ifdef LC_LOCAL
-#include "parser.hpp"
-#else
-#define dbg(...)
-#endif
-
-// ----- CHANGE FOR PROBLEM -----
 class Solution
 {
 public:
-  void test() {}
+  int test(vector<int> v)
+  {
+    return v[0];
+  }
 };
-// ----- CHANGE FOR PROBLEM -----
 
-#ifdef LC_LOCAL
 int main()
 {
-  cin.tie(0)->ios_base::sync_with_stdio(false);
-  exec(&Solution::test); // CHANGE FOR PROBLEM
+  Solution s;
+  vector<int> input = {1, 2, 3};
+  int output = s.test(input);
+  assert(output == 0);
+  return 0;
 }
-#endif
