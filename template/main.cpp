@@ -1,4 +1,5 @@
 #include <unordered_map>
+#include <unordered_set>
 #include <string>
 #include <vector>
 #include <cassert>
@@ -17,7 +18,6 @@ int main()
 {
   Solution s;
   vector<int> input = {1, 2, 3};
-  int output = s.test(input);
-  assert(output == 0);
+  auto output = s.test(input);
   return 0;
 }
