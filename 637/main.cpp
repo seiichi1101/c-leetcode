@@ -12,33 +12,31 @@ using namespace std;
 
 class Solution {
 public:
-  int maxDepth(TreeNode *root) {
-    if (root == nullptr) {
-      return 0;
-    }
+  vector<double> averageOfLevels(TreeNode *root) {
+    vector<double> res;
     queue<TreeNode *> queue;
     queue.push(root);
-    int c = 0;
     while (!queue.empty()) {
       int size = queue.size();
+      double tmp = 0;
       for (size_t i = 0; i < size; i++) {
         TreeNode *node = queue.front();
         queue.pop();
+        tmp += double(node->val);
         if (node->left != nullptr)
           queue.push(node->left);
         if (node->right != nullptr)
           queue.push(node->right);
       }
-      c++;
+      res.push_back(tmp / double(size));
     }
-    return c;
+    return res;
   }
 };
 
 int main() {
   Solution s;
-  // vector<optional<int>> input = {3, 9, 20, nullopt, nullopt, 15, 7};
-  vector<optional<int>> input = {1, 2, 3, 4, nullopt, nullopt, 5};
-  s.maxDepth(createTreeNode(input));
+  vector<optional<int>> input = {3, 9, 20, nullopt, nullopt, 15, 7};
+  auto output = s.averageOfLevels(createTreeNode(input));
   return 0;
 }

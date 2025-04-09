@@ -12,19 +12,18 @@ using namespace std;
 
 class Solution {
 public:
-  TreeNode *invertTree(TreeNode *root) {
-    if (root != nullptr) {
-      swap(root->left, root->right);
-      invertTree(root->left);
-      invertTree(root->right);
+  int countNodes(TreeNode *root) {
+    if (root == nullptr) {
+      return 0;
+    } else {
+      return 1 + countNodes(root->left) + countNodes(root->right);
     }
-    return root;
   }
 };
 
 int main() {
   Solution s;
-  vector<optional<int>> input = {1, 2, 3};
-  auto output = s.invertTree(createTreeNode(input));
+  vector<optional<int>> input = {1, 2, 3, 4, 5, 6};
+  auto output = s.countNodes(createTreeNode(input));
   return 0;
 }
