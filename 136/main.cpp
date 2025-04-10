@@ -14,12 +14,18 @@ using namespace std;
 
 class Solution {
 public:
-  int test(vector<int> v) { return v[0]; }
+  int singleNumber(vector<int> &nums) {
+    int res = 0;
+    for (auto &&n : nums) {
+      res ^= n;
+    }
+    return res;
+  }
 };
 
 int main() {
   Solution s;
-  vector<int> input = {1, 2, 3};
-  auto output = s.test(input);
+  vector<int> input = {2, 2, 1};
+  auto output = s.singleNumber(input);
   return 0;
 }
