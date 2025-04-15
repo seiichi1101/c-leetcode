@@ -1,4 +1,5 @@
 #include "../util.hpp"
+#include <algorithm>
 #include <bitset>
 #include <cassert>
 #include <climits>
