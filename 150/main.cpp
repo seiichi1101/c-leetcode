@@ -1,39 +1,60 @@
-#include <unordered_map>
-#include <string>
-#include <vector>
+#include "../util.hpp"
+#include <algorithm>
+#include <bitset>
 #include <cassert>
+#include <climits>
+#include <iostream>
+#include <numeric>
+#include <optional>
+#include <queue>
+#include <set>
+#include <stack>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
 using namespace std;
 
-class Solution
-{
+class Solution {
+private:
+  static const unordered_set<string> op;
+
 public:
-  vector<int>
-  twoSum(vector<int> &nums, int target)
-  {
-    vector<int> res;
-    unordered_map<int, int> map;
-    for (int i = 0; i < nums.size(); i++)
-    {
-      if (map.find(nums[i]) != map.end())
-      {
-        res = {map[nums[i]], i};
-        return res;
-      }
-      else
-      {
-        map[target - nums[i]] = i;
+  int evalRPN(vector<string> &tokens) {
+    vector<string> stack;
+    for (auto &&t : tokens) {
+      if (op.find(t) == op.end()) {
+        stack.push_back(t);
+      } else {
+        int tmp = 0;
+        int a = stoi(stack.back());
+        stack.pop_back();
+        int b = stoi(stack.back());
+        stack.pop_back();
+
+        if (t == "+")
+          tmp = b + a;
+        else if (t == "-")
+          tmp = b - a;
+        else if (t == "*")
+          tmp = b * a;
+        else
+          tmp = b / a;
+
+        stack.push_back(to_string(tmp));
       }
     }
-
-    return res;
+    return stoi(stack[0]);
   }
 };
+const unordered_set<string> Solution::op = {"+", "-", "*", "/"};
 
-int main()
-{
+int main() {
   Solution s;
-  vector<int> input1 = {2, 7, 11, 15};
-  int input2 = 9;
-  auto output = s.twoSum(input1, input2);
+  // vector<string> input = {"2", "1", "+", "3", "*"};
+  vector<string> input = {"4", "13", "5", "/", "+"};
+  // vector<string> input = {"4", "-2", "/", "2", "-3", "-", "-"};
+  auto output = s.evalRPN(input);
   return 0;
 }
