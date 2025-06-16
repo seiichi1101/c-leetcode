@@ -1,49 +1,31 @@
-#include <bits/stdc++.h>
+#include <cassert>
+#include <string>
+#include <unordered_map>
+#include <vector>
 using namespace std;
 
-#ifdef LC_LOCAL
-#include "parser.hpp"
-#else
-#define dbg(...)
-#endif
-
-class Solution
-{
+class Solution {
 public:
-  vector<int>
-  twoSum(vector<int> &nums, int target)
-  {
-    int res1 = 0;
-    int res2 = 0;
-    std::unordered_map<int, int> dp;
-    size_t i = 0;
-
-    for (; i < nums.size(); i++)
-    {
-      if (dp.empty())
-      {
-        dp[target - nums[i]] = i;
-        continue;
-      }
-      else
-      {
-        if (dp.find(nums[i]) != dp.end())
-        {
-          res1 = dp[nums[i]];
-          res2 = i;
-          break;
-        }
-        dp[target - nums[i]] = i;
+  vector<int> twoSum(vector<int> &nums, int target) {
+    vector<int> res;
+    unordered_map<int, int> map;
+    for (int i = 0; i < nums.size(); i++) {
+      if (map.find(nums[i]) != map.end()) {
+        res = {map[nums[i]], i};
+        return res;
+      } else {
+        map[target - nums[i]] = i;
       }
     }
-    return vector<int>{res1, res2};
+
+    return res;
   }
 };
 
-#ifdef LC_LOCAL
-int main()
-{
-  cin.tie(0)->ios_base::sync_with_stdio(false);
-  exec(&Solution::twoSum);
+int main() {
+  Solution s;
+  vector<int> input1 = {2, 7, 11, 15};
+  int input2 = 9;
+  auto output = s.twoSum(input1, input2);
+  return 0;
 }
-#endif
