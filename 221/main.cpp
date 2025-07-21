@@ -4,8 +4,11 @@
 #include <cassert>
 #include <climits>
 #include <iostream>
+#include <list>
+#include <numeric>
 #include <optional>
 #include <queue>
+#include <set>
 #include <stack>
 #include <string>
 #include <unordered_map>
@@ -14,58 +17,46 @@
 
 using namespace std;
 
-class Node {
+class Solution {
 public:
-  unordered_map<char, Node *> children;
-  bool isEnd = false;
-};
-
-class WordDictionary {
-private:
-  Node root;
-
-public:
-  WordDictionary() { root = Node(); }
-
-  void addWord(string word) {
-    Node *curr = &root;
-    for (char c : word) {
-      if (!curr->children[c])
-        curr->children[c] = new Node();
-      curr = curr->children[c];
-    }
-    curr->isEnd = true;
-  }
-
-  bool searchHelper(const string &word, int idx, Node *node) {
-    if (!node)
-      return false;
-    if (idx == word.size())
-      return node->isEnd;
-    char c = word[idx];
-    if (c == '.') {
-      for (auto &[k, child] : node->children) {
-        if (searchHelper(word, idx + 1, child))
-          return true;
+  int maximalSquare(vector<vector<char>> &matrix) {
+    int res = 0;
+    vector<vector<int>> dp(matrix.size(), vector<int>(matrix[0].size(), false));
+    for (size_t i = 0; i < matrix.size(); i++) {
+      for (size_t j = 0; j < matrix[i].size(); j++) {
+        if ((i == 0 || j == 0)) {
+          if (matrix[i][j] == '1') {
+            dp[i][j] = 1;
+            res = 1;
+          }
+        }
       }
-      return false;
-    } else {
-      return searchHelper(word, idx + 1, node->children[c]);
     }
+
+    for (size_t i = 1; i < matrix.size(); i++) {
+      for (size_t j = 1; j < matrix[i].size(); j++) {
+        if (matrix[i][j] == '1') {
+          dp[i][j] = min(min(dp[i][j - 1], dp[i - 1][j]), dp[i - 1][j - 1]) + 1;
+          res = max(res, dp[i][j]);
+        }
+      }
+    }
+
+    return res * res;
   }
-  bool search(string word) { return searchHelper(word, 0, &root); }
 };
 
 int main() {
-  WordDictionary wordDictionary;
-  // wordDictionary.addWord("bad");
-  // wordDictionary.addWord("dad");
-  // wordDictionary.addWord("mad");
-  // wordDictionary.search("pad"); // return False
-  // wordDictionary.search("bad"); // return True
-  // wordDictionary.search(".ad"); // return True
-  // wordDictionary.search("b.."); // return True
-  wordDictionary.addWord("a");
-  wordDictionary.search("a.");
+  Solution s;
+  // vector<vector<char>> input = {
+  //     vector<char>{'1', '0', '1', '0', '0'},
+  //     vector<char>{'1', '0', '1', '1', '1'},
+  //     vector<char>{'1', '1', '1', '1', '1'},
+  //     vector<char>{'1', '0', '0', '1', '0'},
+  // };
+  vector<vector<char>> input = {
+      vector<char>{'0'},
+  };
+  auto output = s.maximalSquare(input);
   return 0;
 }
