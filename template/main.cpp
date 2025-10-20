@@ -3,6 +3,7 @@
 #include <bitset>
 #include <cassert>
 #include <climits>
+#include <cmath>
 #include <iostream>
 #include <list>
 #include <numeric>
@@ -24,7 +25,7 @@ public:
 
 int main() {
   Solution s;
-  vector<int> input = {1, 2, 3};
-  auto output = s.test(input);
+  vector<int> input1 = {1, 2, 3};
+  auto output = s.test(input1);
   return 0;
 }
