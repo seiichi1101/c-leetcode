@@ -27,5 +27,6 @@ int main() {
   Solution s;
   vector<int> input1 = {1, 2, 3};
   auto output = s.test(input1);
+  assert(s.test(vector<int>{1, 2, 3}) == 1);
   return 0;
 }
