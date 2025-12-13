@@ -20,7 +20,10 @@ using namespace std;
 
 class Solution {
 public:
-  int test(vector<int> v) { return v[0]; }
+  int test(vector<int> v) {
+    cout << "test\n";
+    return v[0];
+  }
 };
 
 int main() {
