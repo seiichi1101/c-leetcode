@@ -2,7 +2,9 @@
   "editor.formatOnType": true,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
-  "github.copilot.editor.enableAutoCompletions": false,
+  "github.copilot.enable": {
+    "*": false
+  },
   "files.associations": {
     "*.ejs": "html",
     "vector": "cpp",
